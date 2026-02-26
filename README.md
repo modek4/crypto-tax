@@ -1,4 +1,4 @@
-#PIT-38 Crypto — Binance
+# PIT-38 Crypto — Binance
 ## ➡️ [OPEN ME](https://modek4.github.io/crypto-tax/) ⬅️
 
 > README and Code Comments in Polish, because tax settlements in Poland
