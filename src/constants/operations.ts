@@ -141,7 +141,7 @@ export const TAXABLE_INCOME_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Crypto Box' },
   { type: 'exact', value: 'Token Swap Restitution' },
   { type: 'contains', value: 'Bonus' },
-  { type: 'contains', value: 'Alpha 2.0' },
+  { type: 'contains', value: 'Alpha 2.0 Token' },
   { type: 'contains', value: 'Mission Reward' },
 
   //* Mining (sprawdź z doradcą!)

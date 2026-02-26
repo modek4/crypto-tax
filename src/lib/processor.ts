@@ -192,6 +192,24 @@ export async function processTransactions(
         continue
       }
       //! ──────────────────────────────────────────────────────────
+      //* Operacje techniczne (np. wewnętrzne, konwersje, itp.)
+      //* TECHNICAL_PATTERNS
+      //! ──────────────────────────────────────────────────────────
+      if (isTechnicalOp(extendedCategory)) {
+        const matchedBy = whichPatternMatched(extendedCategory, TECHNICAL_PATTERNS) ?? ''
+        const reason = _isFiat && /deposit/i.test(extendedCategory)
+          ? 'Wpłata własnych środków fiducjarnych'
+          : _isFiat && /withdraw/i.test(extendedCategory)
+            ? 'Wypłata środków na konto bankowe'
+            : `Operacja techniczna (${extendedCategory})`
+        ignored.push({
+          ...base, pricePLN: 0, category: 'ignored',
+          extendedCategory: reason,
+          additionalReason: `Wzorzec: ${matchedBy}`,
+        })
+        continue
+      }
+      //! ──────────────────────────────────────────────────────────
       //* Przychody z Earn/Staking/Airdrop na PRZYCHÓD (art. 17 ust. 1f updof)
       //* Wartość w dniu otrzymania, przychód staje się kosztem nabycia przy sprzedaży (!)
       //* TAXABLE_INCOME_PATTERNS
@@ -229,24 +247,6 @@ export async function processTransactions(
           ...base, pricePLN: 0, category: 'ignored',
           extendedCategory: 'Konwersja pyłu → BNB (krypto→krypto, neutralna)',
           additionalReason: 'Jeśli pył był wymieniany na FIAT — wymaga ręcznej korekty.',
-        })
-        continue
-      }
-      //! ──────────────────────────────────────────────────────────
-      //* Operacje techniczne (np. wewnętrzne, konwersje, itp.)
-      //* TECHNICAL_PATTERNS
-      //! ──────────────────────────────────────────────────────────
-      if (isTechnicalOp(extendedCategory)) {
-        const matchedBy = whichPatternMatched(extendedCategory, TECHNICAL_PATTERNS) ?? ''
-        const reason = _isFiat && /deposit/i.test(extendedCategory)
-          ? 'Wpłata własnych środków fiducjarnych'
-          : _isFiat && /withdraw/i.test(extendedCategory)
-            ? 'Wypłata środków na konto bankowe'
-            : `Operacja techniczna (${extendedCategory})`
-        ignored.push({
-          ...base, pricePLN: 0, category: 'ignored',
-          extendedCategory: reason,
-          additionalReason: `Wzorzec: ${matchedBy}`,
         })
         continue
       }
