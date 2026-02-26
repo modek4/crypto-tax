@@ -43,8 +43,8 @@ BINANCE_KLINES = "https://api.binance.com/api/v3/klines"
 ## Instalacja i uruchomienie
 1. Klonowanie repozytorium:
 ```bash
-git clone https://github.com/modek4/CryptoTaxCalculator.git
-cd CryptoTaxCalculator
+git clone https://github.com/modek4/crypto-tax.git
+cd crypto-tax
 ```
 2. Instalacja zależności:
 ```bash
