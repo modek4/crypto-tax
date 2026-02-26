@@ -109,8 +109,14 @@ export const TAXABLE_INCOME_PATTERNS: OpPattern[] = [
   //* Launchpool
   { type: 'prefix', value: 'Launchpool' },
   //* Simple Earn/Savings
-  { type: 'prefix', value: 'Simple Earn' },
-  { type: 'prefix', value: 'Savings' },
+  { type: 'exact', value: 'Simple Earn Flexible Interest' },
+  { type: 'exact', value: 'Simple Earn Flexible Airdrop' },
+  { type: 'exact', value: 'Simple Earn Locked Rewards' },
+  { type: 'exact', value: 'Simple Earn Locked Interest' },
+  { type: 'suffix', value: 'Earn Rewards' },
+  { type: 'suffix', value: 'Earn Interest' },
+  { type: 'exact', value: 'Savings Interest' },
+  { type: 'exact', value: 'Savings Distribution' },
   //* Airdropy i dystrybucje
   { type: 'exact', value: 'Distribution' },
   { type: 'suffix', value: 'Distribution' },
