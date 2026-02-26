@@ -58,7 +58,7 @@ export const TRADE_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Transaction Spend' },
   { type: 'exact', value: 'Transaction Revenue' },
   { type: 'exact', value: 'Transaction Related' },
-  // { type: 'exact', value: 'Binance Convert' }, //TODO Wymyślić, czy traktować konwersje jako handel
+  { type: 'exact', value: 'Binance Convert' },
   { type: 'exact', value: 'Large OTC trading' },
   { type: 'exact', value: 'P2P Trading' },
   { type: 'contains', value: 'OTC' },
@@ -168,7 +168,7 @@ export const TECHNICAL_PATTERNS: OpPattern[] = [
   //* Freeze/lock
   { type: 'exact', value: 'Freeze' },
   { type: 'exact', value: 'Unfreeze' },
-  { type: 'exact', value: 'Binance Convert' }, //REMOVE TODO Wymyślić, czy traktować konwersje jako handel
+  // { type: 'exact', value: 'Binance Convert' }, //REMOVE TODO Wymyślić, czy traktować konwersje jako handel
   //* Subscriptions/Redemptions
   { type: 'suffix', value: 'Subscription' },
   { type: 'suffix', value: 'Redemption' },

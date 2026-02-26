@@ -143,7 +143,7 @@ export async function exportToExcel(result: PIT38Result, config: AppConfig): Pro
       row.getCell(2).font = { bold: true, color: { argb: 'ff4ade70' }, size: 12 }
       row.getCell(2).numFmt = '#,##0'
     } else if (tag === 'CARRY') {
-      row.getCell(2).font = { bold: true, color: { argb: 'fffbd024' } }
+      row.getCell(2).font = { bold: true, color: { argb: 'ff247afb' } }
     } else if (tag === 'INTEGER') {
       row.getCell(2).numFmt = '#,##0'
     }
