@@ -1,69 +1,78 @@
-#PIT-38 Crypto — Binance
-## ➡️ [OPEN ME](https://modek4.github.io/crypto-tax/) ⬅️
+# PL PIT-38 Crypto Tax Calculator
+Skrypt Python do automatycznego wyliczania przychodów i kosztów z handlu kryptowalutami na giełdzie Binance, zgodnie z polskimi przepisami podatkowymi (PIT-38, sekcja E).
+Wersja webowa [tutaj](https://modek4.github.io/crypto-tax/)
 
-> README and Code Comments in Polish, because tax settlements in Poland
+## Kluczowe funkcjonalności
+- **Zgodność z NBP**: Automatyczne pobieranie kursów walut z [API NBP](https://api.nbp.pl/) z dnia roboczego poprzedzającego transakcję (Art. 11 ust. 1 w zw. z Art. 17 ust. 1 ustawy o PIT).
+- **Inteligentne filtrowanie**: Segregacja transakcji na przychody/koszty (FIAT/Stablecoin) i neutralne (krypto-krypto).
+- **Obsługa prowizji**: Wycena prowizji (Transaction Fee) w PLN - FIAT wg NBP, krypto wg Binance API.
+- **Stablecoiny**: USDT/USDC/FDUSD/BUSD/DAI = 1:1 USD.
+- **Raport Excel**: Przychody (34), Koszty (35), Ignorowane, Podsumowanie z podatkiem 19%.
 
-Aplikacja webowa do rozliczania podatku PIT-38 od zysków z kryptowalut na Binance.
-Działa w 100% lokalnie w przeglądarce — żadne dane nie są wysyłane na serwer.
-Wersja w pythonie do odpalenia lokalnie na branchu python.
-
-## Technologie
-
-- **React 18** + **Vite** + **TypeScript**
-- **Tailwind CSS**
-- **SheetJS (xlsx)**
-- **NBP API** kursy walut (tabela A, kurs z dnia poprzedzającego transakcję)
-- **Binance Klines API** (wycena kryptowalut 1h świece)
-
-## Podstawa prawna
-> PRZECZYTAJ MNIE CAŁEGO, ZANIM UŻYJESZ
-### Art. 17 ust. 1f updof  — definicja odpłatnego zbycia waluty wirtualnej
-Przez odpłatne zbycie waluty wirtualnej rozumie się wymianę waluty wirtualnej na prawny środek płatniczy, towar, usługę lub prawo majątkowe inne niż waluta wirtualna lub regulowanie innych zobowiązań walutą wirtualną.
-### Art. 17 ust. 1g updof  — kwalifikacja jako kapitały pieniężne
-Przepis ust. 1 pkt 11 stosuje się również do przychodów uzyskanych w ramach prowadzonej działalności gospodarczej, z wyjątkiem działalności, o której mowa w art. 2 ust. 1 pkt 12 ustawy o przeciwdziałaniu praniu pieniędzy oraz finansowaniu terroryzmu, zaliczanej do przychodów z pozarolniczej działalności gospodarczej.
-### Art. 22 ust. 14-16 updof — koszty uzyskania przychodu
-#### 14.
-Koszty uzyskania przychodów z tytułu odpłatnego zbycia waluty wirtualnej stanowią udokumentowane wydatki bezpośrednio poniesione na nabycie waluty wirtualnej oraz koszty związane ze zbyciem waluty wirtualnej, w tym udokumentowane wydatki poniesione na rzecz podmiotów, o których mowa w art. 2 ust. 1 pkt 12 ustawy o przeciwdziałaniu praniu pieniędzy oraz finansowaniu terroryzmu
-#### 15.
-Koszty uzyskania przychodów, o których mowa w ust. 14, są potrącane w tym roku podatkowym, w którym zostały poniesione, z zastrzeżeniem ust. 16.
-#### 16.
-Nadwyżka kosztów uzyskania przychodów, o których mowa w ust. 14, nad przychodami z odpłatnego zbycia waluty wirtualnej uzyskanymi w roku podatkowym powiększa koszty uzyskania przychodów z tytułu odpłatnego zbycia waluty wirtualnej poniesione w następnym roku podatkowym.
-### Art. 30b ust. 1a/1b updof — stawka 19%, definicja dochodu
-#### 1a.
-Od dochodów uzyskanych z odpłatnego zbycia walut wirtualnych podatek dochodowy wynosi 19% uzyskanego dochodu.
-#### 1b.
-Dochodem z odpłatnego zbycia walut wirtualnych jest osiągnięta w roku podatkowym różnica między sumą przychodów uzyskanych z tytułu odpłatnego zbycia walut wirtualnych a kosztami uzyskania przychodów określonymi na podstawie art. 22 ust. 14-16.
-### Art. 30b ust. 5d updof  — zakaz łączenia z innymi kapitałami
-Dochodów z odpłatnego zbycia walut wirtualnych nie łączy się z dochodami opodatkowanymi na zasadach określonych w ust. 1 oraz w art. 27 lub art. 30c.
-### Art. 30b ust. 6/6a updof — obowiązek złożenia PIT-38
-#### 6.
-Po zakończeniu roku podatkowego podatnik jest obowiązany w zeznaniu, o którym mowa w art. 45 ust. 1a pkt 1, wykazać uzyskane w roku podatkowym dochody, o których mowa w ust. 1 i 1a, i obliczyć należny podatek dochodowy.
-#### 6a.
-W zeznaniu, o którym mowa w art. 45 ust. 1a pkt 1, podatnik wykazuje koszty uzyskania przychodów, o których mowa w art. 22 ust. 14-16, także wtedy, gdy w roku podatkowym nie uzyskał przychodów z odpłatnego zbycia walut wirtualnych.
-
-### CAŁOŚĆ PRAWA PODATKOWEGO 2026.01.01:
-https://przepisy.gofin.pl/przepisy,4,16,13,700,,20260101,ustawa-z-dnia-26071991-r-o-podatku-dochodowym-od-osob.html
-
-## Uruchomienie lokalne
-
-```bash
-git clone https://github.com/modek4/crypto-tax
-cd crypto-tax
-npm install
-npm run dev
+## Ustawienia domyślne
+Wewnątrz skryptu możesz skonfigurować następujące parametry:
+```python
+# Aktualizuj ten rok, jeśli chcesz rozliczyć inny. Pamiętaj, że musisz mieć CSV z tym rokiem, a jeśli ktoś ma inny format dat, to trzeba będzie dopasować DATE_FORMATS.
+TARGET_YEAR = 2025
+# Plik CSV z Binance, można go pobrać stąd https://www.binance.com/pl/my/download-center, przykład utworzenia poprawnego pliku csv w README.
+CSV_FILE = "Binance.csv"
+# Nazwa pliku wynikowego, można zmienić, ale lepiej zostawić z rokiem, żeby łatwo było znaleźć. Jeśli ktoś chce inny format, to trzeba będzie dopasować też nagłówki w CSV_FIELDS.
+OUTPUT_FILE = f"Binance_PIT38_BEZPIECZNE_{TARGET_YEAR}.xlsx"
+# Binance ma różne formaty dat w zależności od źródła, więc próbujemy kilka. Jeśli ktoś ma inny format, to trzeba będzie dodać.
+DATE_FORMATS = ["%y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S"]
+# Klucze to nazwy kolumn z CSV, wartości to polskie nagłówki. Jeśli ktoś ma inne nagłówki, to trzeba będzie je tu dopasować.
+CSV_FIELDS = {
+    "time": "Czas",
+    "operation": "Operacja",
+    "asset": "Moneta",
+    "change": "Zmień",
+    "account": "Konto"
+}
+# Jeśli ktoś ma koszty z poprzednich lat, to można je tu dodać, żeby odjąć od przychodów i obniżyć podatek. Jeśli nie, to zostawiamy 0.
+CARRIED_COSTS_FROM_PREVIOUS_YEARS = 0.0
+# Dla uproszczenia zakładam, że wszystkie transakcje są w PLN lub stablecoinach, a jeśli nie, to próbuję wycenić fee na USD i przeliczyć na PLN. Jeśli ktoś ma dużo transakcji w innych walutach, to trzeba będzie dodać więcej logiki.
+FIAT_CURRENCIES = ["PLN", "EUR", "USD", "GBP", "CHF"]
+# Binance ma tylko kilka stablecoinów, więc jeśli ktoś używa innych, to trzeba będzie dodać ręcznie
+STABLECOINS = ["USDT", "USDC", "FDUSD", "BUSD", "DAI"]
+# NBP API ma limity i może zwracać 404 dla weekendów/świąt, dlatego szukamy kursu z kilku dni wstecz
+NBP_API = "https://api.nbp.pl/api/exchangerates/rates/a"
+# Binance API do pobierania cen, jeśli ktoś chce użyć innego źródła, to trzeba będzie dopasować URL i parametry
+BINANCE_KLINES = "https://api.binance.com/api/v3/klines"
 ```
 
-## Jak pobrać plik CSV z Binance
+## Instalacja i uruchomienie
+1. Klonowanie repozytorium:
+```bash
+git clone https://github.com/modek4/CryptoTaxCalculator.git
+cd CryptoTaxCalculator
+```
+2. Instalacja zależności:
+```bash
+pip install -r requirements.txt
+```
+3. Przygotowanie danych:
+    1. Zaloguj się na Binance.
+    2. Wyeksportuj pełną historię: Waluta -> Raporty podatkowe -> Generuj wszystkie instrukcje (Generate All Statements).
+    3. Upewnij się, że plik CSV ma nagłówki: **Czas, Operacja, Moneta, Zmień, Konto**.
+    4. Umieść plik w folderze ze skryptem i **nazwij go zgodnie z CSV_FILE**.
 
-1. Zaloguj się na Binance
-2. Przejdź do **[Download Center](https://www.binance.com/pl/my/download-center)**
-3. Wybierz **"Generate all statements"**
-4. Wybierz rok i kliknij **Generate**
-5. Pobierz plik `.csv` i usuń zbędne nagłówki (przykładowy plik Example.csv)
-6. Wrzuć do aplikacji
+4. Uruchom
+```bash
+python pit38_crypto.py
+```
 
-## Ważne uwagi
+5. Otwórz wygenerowany plik Excel i przepisz wartości z zakładki Podsumowanie do swojego zeznania PIT-38.
+    1. Przychód -> Pole 34
+    2. Koszty -> Pole 35
+    3. Koszty z lat ubiegłych -> Pole 36 (wpisz ręcznie, jeśli przenosisz stratę z roku poprzedniego).
 
-- Futures i Margin **nie są obsługiwane** — wymagają osobnej analizy prawnej
-- Nadwyżkę kosztów z danego roku wpisz jako "Koszty przeniesione" w kolejnym roku
-- Zawsze zweryfikuj wynik z doradcą podatkowym przed złożeniem PIT-38
+## Logika podatkowa (Art. 11a i 17 ust. 1 ustawy o PIT)
+- **Moment podatkowy**: Przychód/Koszt powstaje tylko w momencie zamiany krypto na walutę FIAT (PLN, EUR, USD) lub Stablecoin.
+- **Neutralność Krypto-Krypto**: Zamiana np. BTC na ETH jest ignorowana (brak obowiązku podatkowego w Polsce).
+- **Kursy walut**: Skrypt automatycznie szuka kursu NBP z dnia poprzedzającego. Jeśli transakcja była w poniedziałek, pobierze kurs z piątku.
+- **Prowizje (Fees)**: Prowizje w walutach FIAT/Stable są doliczane do kosztów. Prowizje w BNB ("Pay fees in BNB") są pomijane przez brak kursów NBP dla BNB (bezpieczne zaniżenie kosztów).
+- **Transfery**: Przesunięcia między portfelami (np. Spot do Futures) są ignorowane.
+
+## ⚠️ Disclaimer
+1. Jeśli uważasz, że dane są rozbierzne, sprawdź w zakładce "Pominięte", czy nie znajdują się tam transakcje **Binance Convert**, które mogły zawierać wymianę do FIAT.
+2. Skrypt jest narzędziem pomocniczym udostępnionym na zasadach "as is". Autor nie bierze odpowiedzialności za ewentualne błędy w rozliczeniach. **Zaleca się wyrywkową weryfikację kursów NBP z raportem Excel.**
