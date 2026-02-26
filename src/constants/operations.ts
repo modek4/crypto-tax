@@ -53,6 +53,8 @@ export interface OpPattern {
 export const TRADE_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Buy' },
   { type: 'exact', value: 'Sell' },
+  { type: 'exact', value: 'Transaction Buy' },
+  { type: 'exact', value: 'Transaction Sold' },
   { type: 'exact', value: 'Transaction Spend' },
   { type: 'exact', value: 'Transaction Revenue' },
   { type: 'exact', value: 'Transaction Related' },
@@ -179,6 +181,8 @@ export const TECHNICAL_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'transfer_out' },
   { type: 'contains', value: 'Account Transfer' },
   { type: 'contains', value: 'Funding Account' },
+  { type: 'exact', value: 'Transfer Between Main and Funding Wallet' },
+  { type: 'contains', value: 'Main Account/Futures and Margin Account' },
   //* Wpłaty/wypłaty
   { type: 'exact', value: 'Deposit' },
   { type: 'exact', value: 'Fiat Deposit' },
@@ -196,6 +200,8 @@ export const TECHNICAL_PATTERNS: OpPattern[] = [
   { type: 'prefix', value: 'Auto Invest' },
   //* Super BNB Mining (techniczne nie jest płatnością)
   { type: 'exact', value: 'Super BNB Mining' },
+  //* Alpha 2.0
+  { type: 'contains', value: 'Asset Freeze' },
 ]
 
 /**

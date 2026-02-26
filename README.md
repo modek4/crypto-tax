@@ -1,6 +1,8 @@
 # PIT-38 Crypto — Binance
 ## ➡️ [OPEN ME](https://modek4.github.io/crypto-tax/) ⬅️
 
+## ⚠️ PROJEKT W FAZIE ROZWOJU – możliwe błędy
+
 > README and Code Comments in Polish, because tax settlements in Poland
 
 Aplikacja webowa do rozliczania podatku PIT-38 od zysków z kryptowalut na Binance.
