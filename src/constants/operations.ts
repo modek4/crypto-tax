@@ -55,6 +55,8 @@ export const TRADE_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Sell' },
   { type: 'exact', value: 'Transaction Buy' },
   { type: 'exact', value: 'Transaction Sold' },
+  { type: 'exact', value: 'Buy Crypto With Fiat' },
+  { type: 'exact', value: 'Sell Crypto To Fiat' },
   { type: 'exact', value: 'Transaction Spend' },
   { type: 'exact', value: 'Transaction Revenue' },
   { type: 'exact', value: 'Transaction Related' },
@@ -130,7 +132,7 @@ export const TAXABLE_INCOME_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Commission History' },
   { type: 'exact', value: 'Commission Rebate' },
   { type: 'prefix', value: 'Commission' },
-  { type: 'suffix', value: 'Cashback' },
+  { type: 'contains', value: 'Cashback' },
   { type: 'contains', value: 'Cash Voucher' },
   //* Inne nagrody
   { type: 'suffix', value: 'Rewards' },
@@ -202,6 +204,7 @@ export const TECHNICAL_PATTERNS: OpPattern[] = [
   { type: 'exact', value: 'Super BNB Mining' },
   //* Alpha 2.0
   { type: 'contains', value: 'Asset Freeze' },
+  { type: 'contains', value: 'Asset Recovery' },
 ]
 
 /**
