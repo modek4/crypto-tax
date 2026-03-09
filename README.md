@@ -7,7 +7,7 @@ Aplikacja webowa do rozliczania podatku PIT-38 od zysków z kryptowalut na Binan
 Działa w 100% lokalnie w przeglądarce — żadne dane nie są wysyłane na serwer.
 Wersja w pythonie do odpalenia lokalnie na branchu python.
 
-![alt text](image-2.png)
+![Main image](image.png)
 
 ## Technologie
 
