@@ -6,11 +6,11 @@ export function WarningBanner() {
   //* Jeśli jest błąd krytyczny, pokazujemy go w czerwonym bannerze
   if (errorMsg) {
     return (
-      <div className='flex items-start gap-3 bg-red-900/30 border border-red-700/50 rounded-xl p-4'>
-        <AlertTriangle className='w-5 h-5 text-red-400 shrink-0 mt-0.5' />
+      <div className='flex items-start gap-3 dark:bg-red-900/30 bg-red-600/30 border dark:border-red-700/50 border-red-700 rounded-xl p-4'>
+        <AlertTriangle className='w-5 h-5 dark:text-red-400 text-red-700 shrink-0 mt-0.5' />
         <div>
-          <p className='text-red-300 font-medium text-sm'>Błąd krytyczny</p>
-          <p className='text-red-400 text-sm mt-0.5'>{errorMsg}</p>
+          <p className='dark:text-red-300 text-red-600 font-medium text-sm'>Błąd krytyczny</p>
+          <p className='dark:text-red-400 text-red-700 text-sm mt-0.5'>{errorMsg}</p>
         </div>
       </div>
     )
@@ -29,9 +29,9 @@ export function WarningBanner() {
   return (
     <div className='space-y-2'>
       {msgs.map((msg, i) => (
-        <div key={i} className='flex items-start gap-3 bg-amber-900/25 border border-amber-700/40 rounded-xl p-4'>
-          <AlertTriangle className='w-4 h-4 text-amber-400 shrink-0 mt-0.5' />
-          <p className='text-amber-300 text-sm'>{msg}</p>
+        <div key={i} className='flex items-start gap-3 dark:bg-amber-900/25 bg-amber-500/25 border dark:border-amber-700/40 border-amber-600/40 rounded-xl p-4'>
+          <AlertTriangle className='w-4 h-4 dark:text-amber-400 text-amber-600 shrink-0 mt-0.5' />
+          <p className='dark:text-amber-300 text-amber-700 text-sm'>{msg}</p>
         </div>
       ))}
     </div>

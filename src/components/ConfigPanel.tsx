@@ -7,7 +7,7 @@ export function ConfigPanel() {
 
   return (
     <div className='card space-y-4'>
-      <h2 className='text-sm font-semibold text-slate-300 uppercase tracking-wider'>
+      <h2 className='text-sm font-semibold dark:text-slate-300 uppercase tracking-wider'>
         Konfiguracja
       </h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
@@ -20,7 +20,7 @@ export function ConfigPanel() {
         <div>
           <label className='label'>
             Nadwyżka kosztów z lat poprzednich (PLN)
-            <span className='ml-1 text-slate-500 font-normal'>art. 22 ust. 16 updof</span>
+            <span className='ml-1 dark:text-slate-500 font-normal'>art. 22 ust. 16 updof</span>
           </label>
           <input type='number' className='input' min={0} step={0.01}
             value={config.carriedCosts}
@@ -38,7 +38,7 @@ export function ConfigPanel() {
         <div>
           <label className='label'>
             Dodatkowe stablecoiny
-            <span className='ml-1 text-slate-500 font-normal'>(oddzielone przecinkiem)</span>
+            <span className='ml-1 dark:text-slate-500 font-normal'>(oddzielone przecinkiem)</span>
           </label>
           <input type='text' className='input' placeholder='np. EURC,USDD'
             value={config.extraStablecoins}

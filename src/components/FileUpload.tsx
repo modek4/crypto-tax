@@ -41,14 +41,14 @@ export function FileUpload() {
 
   return (
     <div className="card space-y-4">
-      <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
+      <h2 className="text-sm font-semibold dark:text-slate-300 uppercase tracking-wider">
         Plik CSV z Binance
       </h2>
       {!hasFile && (
         <div
           className="flex flex-col items-center justify-center gap-3 border-2 border-dashed
-            border-neutral-700 hover:border-purple-500 bg-neutral-800/40 hover:bg-blue-900/10
-            rounded-xl p-10 cursor-pointer transition-colors"
+            dark:border-neutral-700 hover:border-purple-500 dark:bg-neutral-800/40 dark:hover:bg-blue-900/10
+            rounded-xl p-10 cursor-pointer"
           onClick={() => inputRef.current?.click()}
           onDragOver={e => e.preventDefault()}
           onDrop={onDrop}
@@ -60,10 +60,10 @@ export function FileUpload() {
             className="hidden"
             onChange={onInputChange}
           />
-          <Upload className="w-10 h-10 text-slate-500" />
+          <Upload className="w-10 h-10 dark:text-slate-500" />
           <div className="text-center">
-            <p className="text-slate-300 font-medium">Przeciągnij plik CSV lub kliknij</p>
-            <p className="text-slate-500 text-sm mt-1">
+            <p className="dark:text-slate-300 font-medium">Przeciągnij plik CSV lub kliknij</p>
+            <p className="dark:text-slate-500 text-sm mt-1">
               Pobierz z{" "}
               <a
                 href="https://www.binance.com/pl/my/download-center"
@@ -81,19 +81,19 @@ export function FileUpload() {
       )}
       {hasFile && (
         <div className="space-y-4">
-          <div className="flex items-center gap-3 p-4 bg-emerald-900/20 border border-emerald-700/40 rounded-xl">
-            <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
+          <div className="flex items-center gap-3 p-4 bg-emerald-500/30 border-emerald-700 dark:bg-emerald-900/20 border dark:border-emerald-700/40 rounded-xl">
+            <CheckCircle className="w-5 h-5 dark:text-emerald-400 text-emerald-800 shrink-0" />
             <div className="flex-1 min-w-0">
-              <p className="text-emerald-300 font-medium text-sm truncate">
+              <p className="dark:text-emerald-300 text-emerald-800 font-medium text-sm truncate">
                 {state.csvFilename}
               </p>
-              <p className="text-slate-400 text-xs mt-0.5">
+              <p className="dark:text-slate-400 text-black text-xs mt-0.5">
                 {state.rowCount.toLocaleString('pl-PL')} wierszy · rok {state.config.targetYear} · konto Spot
               </p>
             </div>
             <button
               onClick={onReset}
-              className="text-slate-500 hover:text-slate-300 transition-colors shrink-0"
+              className="dark:text-red-600 dark:hover:text-red-700 text-red-600 hover:text-red-500 shrink-0"
               title="Usuń plik i zacznij od nowa"
             >
               <XCircle className="w-5 h-5" />
@@ -140,7 +140,7 @@ export function FileUpload() {
               {" "}({Math.round(state.progress.current / state.progress.total * 100)}%)
             </span>
           </div>
-          <div className="w-full bg-neutral-800 rounded-full h-1.5">
+          <div className="w-full dark:bg-neutral-800 bg-neutral-200 rounded-full h-1.5">
             <div
               className="bg-purple-500 h-1.5 rounded-full transition-all duration-150"
               style={{ width: `${Math.round(state.progress.current / state.progress.total * 100)}%` }}

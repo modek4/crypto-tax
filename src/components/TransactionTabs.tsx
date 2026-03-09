@@ -23,14 +23,14 @@ function Table({ rows }: { rows: ProcessedRow[] }) {
   const totalPages = Math.ceil(rows.length / PER_PAGE)
   const visible = rows.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
   //* Pusto
-  if (rows.length === 0) return <p className='text-slate-500 text-sm py-4 text-center'>Brak wierszy w tej kategorii.</p>
+  if (rows.length === 0) return <p className='dark:text-slate-500 text-slate-400 text-sm py-4 text-center'>Brak wierszy w tej kategorii.</p>
   //* Pełno
   return (
     <div className='space-y-3'>
-      <div className='overflow-x-auto rounded-lg border border-neutral-800'>
+      <div className='overflow-x-auto rounded-lg border dark:border-neutral-800 border-neutral-400'>
         <table className='w-full text-xs text-left'>
           <thead>
-            <tr className='bg-neutral-800 text-slate-400'>
+            <tr className='dark:bg-neutral-800 dark:text-slate-400 bg-neutral-300 text-slate-700 uppercase text-xs'>
               {['Data','Operacja','Moneta','Ilość','PLN','Kurs NBP','Typ / Powód'].map(h => (
                 <th key={h} className='px-3 py-2 font-medium whitespace-nowrap'>{h}</th>
               ))}
@@ -38,20 +38,20 @@ function Table({ rows }: { rows: ProcessedRow[] }) {
           </thead>
           <tbody>
             {visible.map((r, i) => (
-              <tr key={i} className='border-t border-neutral-800/60 hover:bg-neutral-800/30 transition-colors'>
-                <td className='px-3 py-2 text-slate-400 whitespace-nowrap font-mono'>{r.operationDate.slice(0,10)}</td>
-                <td className='px-3 py-2 text-slate-300 max-w-32 truncate' title={r.operationName}>{r.operationName}</td>
-                <td className='px-3 py-2 font-medium text-slate-200'>{r.coinName}</td>
-                <td className='px-3 py-2 font-mono text-slate-300 text-right'>{r.coinAmount}</td>
+              <tr key={i} className='border-t dark:border-neutral-800/60 dark:hover:bg-neutral-800/30 border-neutral-300'>
+                <td className='px-3 py-2 dark:text-slate-400 whitespace-nowrap font-mono'>{r.operationDate.slice(0,10)}</td>
+                <td className='px-3 py-2 dark:text-slate-300 max-w-32 truncate' title={r.operationName}>{r.operationName}</td>
+                <td className='px-3 py-2 font-medium dark:text-slate-200'>{r.coinName}</td>
+                <td className='px-3 py-2 font-mono dark:text-slate-300 text-right'>{r.coinAmount}</td>
                 <td className={`px-3 py-2 font-mono font-medium text-right whitespace-nowrap
-                  ${r.category === 'revenue' || r.category === 'income' ? 'text-emerald-400' :
-                    r.category === 'cost' ? 'text-red-400' : 'text-slate-400'}`}>
+                  ${r.category === 'revenue' || r.category === 'income' ? 'dark:text-emerald-400 text-emerald-600' :
+                    r.category === 'cost' ? 'dark:text-red-400 text-red-600' : 'dark:text-slate-400 text-slate-600'}`}>
                   {r.pricePLN > 0 ? fmt(r.pricePLN) : '—'}
                 </td>
-                <td className='px-3 py-2 font-mono text-slate-500 text-right'>
+                <td className='px-3 py-2 font-mono dark:text-slate-500 text-right'>
                   {r.shareNBP ? r.shareNBP.toFixed(4) : '—'}
                 </td>
-                <td className='px-3 py-2 text-slate-400 max-w-48 truncate' title={r.extendedCategory + (r.additionalWarning ? ' | ' + r.additionalWarning : '') + (r.additionalReason ? ' | ' + r.additionalReason : '')}>
+                <td className='px-3 py-2 dark:text-slate-400 max-w-48 truncate' title={r.extendedCategory + (r.additionalWarning ? ' | ' + r.additionalWarning : '') + (r.additionalReason ? ' | ' + r.additionalReason : '')}>
                   {r.extendedCategory}
                   {r.additionalWarning && <span className='ml-1 badge-yellow'>{r.additionalWarning.slice(0,30)}…</span>}
                 </td>
@@ -101,13 +101,13 @@ export function TransactionTabs() {
 
   return (
     <div className='card space-y-4'>
-      <div className='flex flex-wrap gap-1 border-b border-neutral-800 pb-3'>
+      <div className='flex flex-wrap gap-1 border-b dark:border-neutral-800 border-neutral-300 pb-3'>
         {TABS.map(tab => (
           <button key={tab.key}
-            className={`px-3 py-1.5 text-xs rounded-lg font-medium transition-colors ${
+            className={`px-3 py-1.5 text-xs rounded-lg font-medium ${
               active === tab.key
-                ? 'bg-purple-600 text-white'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-neutral-800'
+                ? 'dark:bg-purple-600 dark:text-white bg-purple-200 text-neutral-900'
+                : 'dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-neutral-800 hover:bg-neutral-200 hover:text-neutral-900 text-slate-600'
             }`}
             onClick={() => setActive(tab.key)}
           >
