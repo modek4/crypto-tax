@@ -67,7 +67,9 @@ export async function processTransactions(
           dt.getUTCFullYear() === config.targetYear &&
           r.Account.trim().toLowerCase() === 'spot'
         )
-      } catch { return false }
+      } catch {
+        throw new Error(`Błąd parsowania daty w wierszu: ${JSON.stringify(r)}`)
+      }
     })
     .sort((a, b) => {
       try {

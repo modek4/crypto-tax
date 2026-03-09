@@ -7,36 +7,38 @@ import type { RawRow } from '../types/pit38'
  * @return {Date | null} Obiekt Date, jeśli parsowanie się powiodło, lub null, jeśli format jest nieobsługiwany
  */
 const DATE_PARSERS: Array<(s: string) => Date | null> = [
-  //* YYYY-MM-DD HH:mm:ss lub YYYY-MM-DDTHH:mm:ss
+  //* Binance: YYYY-MM-DD HH:mm:ss
   s => {
-    const norm = s.trim().replace(' ', 'T')
-    //* Jeśli brak strefy — traktuj jako UTC (Binance eksportuje UTC)
-    const withZ = norm.endsWith('Z') ? norm : norm + 'Z'
-    const d = new Date(withZ)
-    return isNaN(d.getTime()) ? null : d
+    const m = s.trim().match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
+    if (!m) return null;
+    return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]));
   },
   //* DD-MM-YYYY HH:mm:ss
   s => {
-    const m = s.trim().match(/^(\d{2})-(\d{2})-(\d{4})[ T](\d{2}:\d{2}:\d{2})$/)
-    if (!m) return null
-    const d = new Date(`${m[3]}-${m[2]}-${m[1]}T${m[4]}Z`)
-    return isNaN(d.getTime()) ? null : d
+    const m = s.trim().match(/^(\d{2})-(\d{2})-(\d{4})[ T](\d{2}):(\d{2}):(\d{2})/);
+    if (!m) return null;
+    return new Date(Date.UTC(+m[3], +m[2] - 1, +m[1], +m[4], +m[5], +m[6]));
   },
-  //* YY-MM-DD HH:mm:ss (rok 2-cyfrowy)
+  //* YY-MM-DD HH:mm:ss
   s => {
-    const m = s.trim().match(/^(\d{2})-(\d{2})-(\d{2})[ T](\d{2}:\d{2}:\d{2})$/)
-    if (!m) return null
-    const d = new Date(`20${m[1]}-${m[2]}-${m[3]}T${m[4]}Z`)
-    return isNaN(d.getTime()) ? null : d
+    const m = s.trim().match(/^(\d{2})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
+    if (!m) return null;
+    return new Date(Date.UTC(2000 + (+m[1]), +m[2] - 1, +m[3], +m[4], +m[5], +m[6]));
   },
   //* MM/DD/YYYY HH:mm:ss
   s => {
-    const m = s.trim().match(/^(\d{2})\/(\d{2})\/(\d{4})[ T](\d{2}:\d{2}:\d{2})$/)
-    if (!m) return null
-    const d = new Date(`${m[3]}-${m[1]}-${m[2]}T${m[4]}Z`)
-    return isNaN(d.getTime()) ? null : d
+    const m = s.trim().match(/^(\d{2})\/(\d{2})\/(\d{4})[ T](\d{2}):(\d{2}):(\d{2})/);
+    if (!m) return null;
+    return new Date(Date.UTC(+m[3], +m[1] - 1, +m[2], +m[4], +m[5], +m[6]));
   },
-]
+  //* ISO-8601 Fallback
+  s => {
+    const norm = s.trim().replace(' ', 'T');
+    const withZ = norm.endsWith('Z') ? norm : norm + 'Z';
+    const d = new Date(withZ);
+    return !isNaN(d.getTime()) ? d : null;
+  }
+];
 
 /**
  * Próbuje sparsować surowy string z datą, obsługując różne formaty daty, które mogą wystąpić w plikach CSV z Binance.

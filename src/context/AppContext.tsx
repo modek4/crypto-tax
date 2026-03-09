@@ -56,7 +56,7 @@ export type Action =
 const defaultConfig: AppConfig = {
   targetYear:       new Date().getFullYear() - 1,
   carriedCosts:     0,
-  csvSeparator:     ';',
+  csvSeparator:     ',',
   extraStablecoins: '',
 }
 

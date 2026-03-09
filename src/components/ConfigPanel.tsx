@@ -30,8 +30,8 @@ export function ConfigPanel() {
           <label className='label'>Separator CSV</label>
           <select className='input' value={config.csvSeparator}
             onChange={e => set('csvSeparator', e.target.value)}>
-            <option value=';'>Średnik ( ; )</option>
             <option value=','>Przecinek ( , )</option>
+            <option value=';'>Średnik ( ; )</option>
             <option value='\t'>Tabulator</option>
           </select>
         </div>

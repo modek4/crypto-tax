@@ -64,7 +64,7 @@ export function SummaryCards() {
         />
         <StatCard
           icon={<AlertCircle className='w-4 h-4 dark:text-purple-400 text-purple-600' />}
-          label='Nadwyżka na następny rok'
+          label='Nadwyżka na kolejny rok'
           value={fmt(result.surplusToCosts)}
           sub='art. 22 ust. 16 updof'
           accent='purple'
